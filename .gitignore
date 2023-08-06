@@ -1,5 +1,6 @@
-uav/build/files/
-uav/build/img/
 uav/px4/px4/
 uav/ardupilot/ardupilot/
 UsbStorage/kali/rtl8812au/
+*.img
+*.img.xz
+*rootfs-*.tar.xz
