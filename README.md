@@ -1,5 +1,5 @@
 # Dark Wolf Solutions - Hack Our Drone
-Repository for the Dark Wolf Hack Our Drone code and documentation.
+Repository for the Dark Wolf Hack Our Drone documentation.
 
 ## Getting Started
 
