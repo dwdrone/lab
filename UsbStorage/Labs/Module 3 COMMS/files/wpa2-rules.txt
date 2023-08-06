@@ -1,0 +1,9 @@
+
+# Notice: Your wordlist should likely be all lowercase - or you are wasting work
+[List.Rules:DarkwolfWpa4Hex]
+#cAz"[A-F0-9][A-F0-9][A-F0-9][A-F0-9]"
+#Az"[A-F0-9][A-F0-9][A-F0-9][A-F0-9]"
+# append after special character
+cAz"[\-_+#$~][A-F0-9][A-F0-9][A-F0-9][A-F0-9]"
+Az"[-\_+#$~][A-F0-9][A-F0-9][A-F0-9][A-F0-9]"
+

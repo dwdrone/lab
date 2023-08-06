@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#pkill arducopter
+
+while(true)
+do
+    res=$(cat /sys/class/net/SoftAp0/operstate)
+    if [ "$res" == "up" ]; then 
+	echo up
+	. /etc/default/arducopter
+	echo $TELEM1
+	echo $TELEM2
+	echo $GPS
+        /usr/local/sbin/arducopter $TELEM1 $TELEM2 $GPS 
+	exit 0
+    else
+	sleep 10
+    fi
+
+done

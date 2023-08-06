@@ -1,0 +1,14 @@
+Package: librobotcontrol
+Version: 1.0.5
+Architecture: armhf
+Maintainer: Jason Kridner <jkridner@beagleboard.org>
+Installed-Size: 4454
+Depends: debconf, bb-customizations (>= 1.20200522), libc6 (>= 2.28), debconf (>= 0.5) | debconf-2.0
+Conflicts: roboticscape
+Replaces: roboticscape
+Provides: roboticscape
+Section: utils
+Priority: optional
+Homepage: http://beagleboard.org/librobotcontrol
+Description: Robot Control Library and Examples
+ Hardware support for BeagleBoard.org Robotics Cape and BeagleBoard.org BeagleBone Blue.

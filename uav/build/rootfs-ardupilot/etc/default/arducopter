@@ -1,0 +1,5 @@
+TELEM1="-C /dev/ttyS1"
+TELEM2="-A udp:192.168.8.150:14550"
+#TELEM2="-A udp:192.168.8.240:14550"
+#TELEM2="-C /dev/ttyAMA0"
+GPS="-B /dev/ttyS2"

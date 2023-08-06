@@ -1,0 +1,16 @@
+[Unit]
+Description=ArduCopter Service
+Conflicts=arduplane.service ardupilot.service ardurover.service
+After=network-online.target
+
+[Service]
+EnvironmentFile=/etc/default/arducopter
+#ExecStartPre=/bin/bash -c "/bin/echo pruecapin_pu > /sys/devices/platform/ocp/ocp:P8_15_pinmux/state"
+#ExecStart=/usr/local/sbin/arducopter $TELEM1 $TELEM2 $GPS
+ExecStart=/usr/local/sbin/arducopter-controller &
+
+#RestartSec=20
+#Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
