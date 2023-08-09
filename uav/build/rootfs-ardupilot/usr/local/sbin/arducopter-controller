@@ -6,15 +6,43 @@ while(true)
 do
     res=$(cat /sys/class/net/SoftAp0/operstate)
     if [ "$res" == "up" ]; then 
-	echo up
-	. /etc/default/arducopter
-	echo $TELEM1
-	echo $TELEM2
-	echo $GPS
-        /usr/local/sbin/arducopter $TELEM1 $TELEM2 $GPS 
-	exit 0
+	echo SoftAP up >> /boot.log 
+
+# some first time config that should only be run once, but ..
+echo first time config >> /boot.log
+/bin/ln -sf /opt/vsx-examples/examples/ /home/debian/
+/bin/mkdir -p /home/debian/.local/share/code-server/User/
+/bin/cp /opt/vsx-examples/examples/settings.json /home/debian/.local/share/code-server/User/
+chown -R debian:debian /home/debian/.local/share/code-server/User/
+
+#echo start code-server >> /boot.log
+#date >> /boot.log
+
+
+#su -c "/usr/bin/nohup /usr/bin/nice -10 /opt/bb-code-server/app/bin/code-server --cert --auth none --disable-telemetry --disable-update-check --config /opt/bb-code-server/config/config.yaml --extensions-dir /opt/bb-code-server/extensions/ --bind-addr 0.0.0.0:3000 /home/debian/examples/BeagleBoard.code-workspace &" debian
+su -c "/usr/bin/nice -10 /opt/bb-code-server/app/bin/code-server --cert --auth none --disable-telemetry --disable-update-check --config /opt/bb-code-server/config/config.yaml --extensions-dir /opt/bb-code-server/extensions/ --bind-addr 0.0.0.0:3000 /home/debian/examples/BeagleBoard.code-workspace &" debian
+
+	while(true)
+	do
+            port3000=$(/bin/ss -plntu | grep 0.0.0.0:3000 | wc -l)
+            if [ "$port3000" == "1" ]; then 
+                echo port 3000 up >> /boot.log
+	        . /etc/default/arducopter
+	        echo $TELEM1
+	        echo $TELEM2
+	        echo $GPS
+                #echo /usr/local/sbin/arducopter $TELEM1 $TELEM2 $GPS 
+		/usr/bin/cpulimit -b -e arducopter -l 25
+                /usr/local/sbin/arducopter $TELEM1 $TELEM2 $GPS  
+	        exit 0
+	    else
+	        sleep 10
+            fi
+        done
     else
 	sleep 10
     fi
 
 done
+
+
