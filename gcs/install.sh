@@ -1,10 +1,11 @@
 set -x
-adb uninstall 'com.estrongs.android.pop'
-adb install 'apks/ES File Explorer File Manager_4.1.9.7.4_Apkpure.apk'
-adb install 'apks/com.stealthcopter.portdroid_0.6.22-78_minAPI21(arm64-v8a,armeabi-v7a,x86,x86_64)(nodpi)_apkmirror.com.apk'
-adb install apks/QGroundControl64-20230428-daily.apk
-adb push  ../UsbStorage/labs/Module\ 1\ GCS/files/rootfs-system.tar.xz /sdcard
-adb push  ../UsbStorage/labs/Module\ 1\ GCS/files/rootfs-ardupilot.tar.xz /sdcard
+#adb uninstall 'com.estrongs.android.pop'
+#adb install 'apks/ES File Explorer File Manager_4.1.9.7.4_Apkpure.apk'
+#adb install 'apks/com.stealthcopter.portdroid_0.6.22-78_minAPI21(arm64-v8a,armeabi-v7a,x86,x86_64)(nodpi)_apkmirror.com.apk'
+#adb install apks/QGroundControl64-20230428-daily.apk
+adb shell rm /sdcard/Download/rootfs*xz
+adb push  ../UsbStorage/Labs/Module\ 1\ GCS/files/rootfs-system.tar.xz /sdcard/Download
+adb push  ../UsbStorage/Labs/Module\ 1\ GCS/files/rootfs-ardupilot.tar.xz /sdcard/Download
 
 #adb install SevnAutorun.apk
 #adb push SevnAutorun.db /sdcard/Download/SevnAutorun.db
