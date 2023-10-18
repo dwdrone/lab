@@ -1,0 +1,12 @@
+[Unit]
+Description=Debian Package Installer
+After=network.target
+
+[Service]
+Type=oneshot
+#ExecStart=/usr/sbin/pkg-installer.sh
+ExecStart=/bin/date > /var/pkg-date.tmp
+
+[Install]
+WantedBy=default.target
+

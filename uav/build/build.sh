@@ -17,38 +17,58 @@ else
 	umount /dev/mmcblk0p2 >/dev/null 2>&1
 fi
 
-cp img/am335x-debian-11.7-iot-armhf-2023-07-01-4gb.img build.img
+# must have image
+IMG=am335x-debian-11.7-iot-armhf-2023-07-01-4gb.img
+if [ -f "img/${IMG}" ]; then
+	cp img/${IMG} build.img
+else
+	echo image file not found:  ${IMG}
+	exit 1
+fi
 
-sleep 4
-mount -o offset=$((8192*512)) build.img /mnt/a/1
+MNTDIR=/mnt/tmp
+if [ -d "${MNTDIR}" ]; then
+	umount ${MNTDIR} 2>/dev/null
+	mount -o offset=$((8192*512)) build.img ${MNTDIR}
+	sleep 4
+else
+	echo mount dir not found: ${MNTDIR}
+fi
 
 # rm /mnt/a/1/etc/systemd/network/usb0.network
 # rm /mnt/a/1/etc/systemd/network/usb1.network
 
 # modifications to the orignal image
 cd rootfs-system
-cp -rp . /mnt/a/1
+cp -rp . ${MNTDIR}
 cd ..
 
 # add credentials for debian and root
-cd rootfs-system
-cp -rp . /mnt/a/1
+cd rootfs-credentials
+cp -rp . ${MNTDIR}
+cd ..
+
+# use the low resource cloud9 used in earlier versions of BB 
+# both bb-code-server and nodered fail when run with ardupilot or px4
+# possibly due to resource scarcity
+cd rootfs-cloud9
+cp -rp . ${MNTDIR}
 cd ..
 
 # modifications to suport PX4
-#cd rootfs-px4
-#cp -rp . /mnt/a/1
-#cd ..
-
-# modifications to suport ArudPilot
-cd rootfs-ardupilot
-cp -rp . /mnt/a/1
+cd rootfs-px4
+cp -rp . ${MNTDIR}
 cd ..
 
-date > /mnt/a/1/date-stamp.txt
-sync -f /mnt/a/1
+# modifications to suport ArudPilot
+#cd rootfs-ardupilot
+#cp -rp . ${MNTDIR}
+#cd ..
+
+date > ${MNTDIR}/date-stamp.txt
+sync -f ${MNTDIR}
 sleep 4
-umount /mnt/a/1
+umount ${MNTDIR}
 
 #echo $(( 7364608 / 512 ))
 #14384

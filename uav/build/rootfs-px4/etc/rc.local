@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo Running rc-local > /var/prep.txt
+
+/usr/sbin/pkg-installer.sh
+
+systemctl enable px4
+systemctl enable cloud9.service
+systemctl enable cloud9.socket
+
+systemctl start cloud9.socket
+systemctl start cloud9.service
+systemctl start px4
+

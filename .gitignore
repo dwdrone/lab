@@ -4,3 +4,6 @@ UsbStorage/kali/rtl8812au/
 *.img
 *.img.xz
 *rootfs-*.tar.xz
+uav/px4/PX4
+uav/px4/gcc*
+uav/keys*

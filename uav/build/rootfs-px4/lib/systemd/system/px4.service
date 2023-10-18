@@ -1,0 +1,16 @@
+[Unit]
+Description=PX4 Quadcopter Service
+After=networking.service network-online.target
+StartLimitIntervalSec=0
+Conflicts=px4-fixed-wing.service
+
+[Service]
+WorkingDirectory=/home/px4
+User=root
+ExecStart=/home/px4/bin/px4 -d -s /home/px4/px4.config
+
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

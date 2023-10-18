@@ -1,0 +1,16 @@
+[Unit]
+Description=Grow Root Partition
+Before=ssh.service
+ConditionFileIsExecutable=/usr/bin/bb-growpart
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bb-growpart
+# 20231017rb: use rc-local for system prep and config
+ExecStartPost=/bin/systemctl enable rc-local.service
+ExecStartPost=/bin/systemctl enable resize_filesystem
+ExecStartPost=/bin/systemctl disable grow_partition
+
+[Install]
+WantedBy=multi-user.target
+
