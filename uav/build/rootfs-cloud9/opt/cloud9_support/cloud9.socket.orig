@@ -1,9 +1,0 @@
-[Unit]
-Description=Cloud9 Socket
-PartOf=cloud9.service
-
-[Socket]
-ListenStream=3000
-
-[Install]
-WantedBy=sockets.target
